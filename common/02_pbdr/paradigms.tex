@@ -1,0 +1,74 @@
+\subsection{Using pbdR}
+\makesubcontentsslidessec
+
+\begin{frame}
+  \begin{block}{pbdR Paradigms}
+  \pbdR\ programs are \R programs!\\[.4cm]
+  Differences:
+  \begin{itemize}[<+-|alert@+>]
+   \item Batch execution (non-interactive).
+   \item Parallel code utilizes Single Program/Multiple Data (SPMD) style
+   \item Emphasizes data parallelism.
+   \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \begin{block}{Batch Execution}\pause
+    \begin{itemize}
+      \item Running a serial \R program in batch:
+\vspace{-.4cm}
+\begin{lstlisting}[language=sh]
+Rscript my_script.r
+\end{lstlisting}
+or\vspace{-.4cm}
+\begin{lstlisting}[language=sh]
+R CMD BATCH my_script.r
+\end{lstlisting}
+      \item Running a parallel (with MPI) \R program in batch:
+\vspace{-.4cm}
+\begin{lstlisting}[language=sh]
+mpirun -np 2 Rscript my_par_script.r
+\end{lstlisting}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Single Program/Multiple Data (SPMD)}\pause
+    \begin{itemize}
+      \item SPMD is a programming \emph{paradigm}.
+      \item Not to be confused with SIMD.
+	\end{itemize}\centering
+	\begin{minipage}[t]{.45\textwidth}
+	\vspace{0pt}
+	\begin{block}{Paradigms}
+	  \textbf{Programming models}\\
+	  OOP, Functional, SPMD, \dots
+	\end{block}
+	\end{minipage}
+	\hspace{.2cm}
+	\begin{minipage}[t]{.45\textwidth}
+	\vspace{0pt}
+	\begin{block}{SIMD}
+	  \textbf{Hardware instructions}\\
+	  MMX, SSE, \dots
+	\end{block}
+	\end{minipage}
+     \\[.4cm]
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Single Program/Multiple Data (SPMD)}\pause
+   SPMD is arguably the simplest extension of serial programming.
+    \begin{itemize}
+      \item Only one program is written, executed in batch on all processors.
+      \item Different processors are autonomous; there is no manager.
+      \item Dominant programming model for large machines for 30 years.
+    \end{itemize}
+  \end{block}
+\end{frame}

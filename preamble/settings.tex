@@ -1,0 +1,108 @@
+\input{preamble/titlepage}
+\input{preamble/pbdR}
+\input{preamble/logos}
+\input{preamble/colors}
+\input{preamble/listings}
+
+
+
+\usepackage{tikz} 
+\def\Put(#1,#2)#3{\leavevmode\makebox(0,0){\put(#1,#2){#3}}}
+
+
+\usepackage{amsmath}
+\usepackage{beamerthemesplit}
+\usepackage{fancybox}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+\makeatletter
+\newcommand\code{\bgroup\@makeother\_\@makeother\~\@makeother\$\@codex}
+\def\@codex#1{{\normalfont\ttfamily\hyphenchar\font=-1 #1}\egroup}
+\makeatother
+
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+
+
+
+\setbeamertemplate{navigation symbols}{} 
+
+\hypersetup{
+    linkcolor=,
+    colorlinks=true,
+    urlcolor=blue
+}
+
+\usetheme{Frankfurt}
+% \usecolortheme{whale}
+% \usetheme{Antibes}
+% \setbeamertemplate{mini frames}{}
+
+
+\newcommand{\fctn}[1]{\textcolor{green!50!blue}{#1}}
+\newcommand{\rfor}[1]{\textcolor{yellow!50!red}{#1}}
+\newcommand{\rcom}[1]{\textcolor{blue}{#1}}
+
+\newcommand{\pkg}[1]{\textbf{#1}}
+
+\newcommand{\startr}{\begin{minipage}{.04\textwidth}\ \ \end{minipage} \begin{minipage}{.91\textwidth}}
+
+%
+\newcommand{\shownum}{\myfulltitle{\mytitlea}}
+\newcommand{\hidenum}{\myfulltitle{\mytitleb}}
+% \newcommand{\shownum}{\mytitle{\mytitlea}}
+% \newcommand{\hidenum}{\mytitle{\mytitleb}}
+% \expandafter\def\expandafter\insertshorttitle\expandafter{\insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
+ 
+
+\newcounter{excount}
+\setcounter{excount}{0}
+\newcommand{\countex}{\addtocounter{excount}{1}\arabic{excount}}
+\newcommand{\showex}{\arabic{excount}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \useoutertheme{miniframes}
+\useoutertheme{infolines}
+
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]%
+  {author in head/foot}%
+    \usebeamerfont{author in head/foot}%
+    \makebox[.48\paperwidth]%
+      {\@myurl \hfill \@myshortauthor}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]%
+  {date in head/foot}%
+   \hspace{1ex} \usebeamerfont{title in head/foot}\@myfulltitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\makeatletter
+  \beamer@compressfalse
+\makeatother
+
+
+
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\addtobeamertemplate{block begin}{\pgfsetfillopacity{0.9}}{\pgfsetfillopacity{1}}
+\setbeamercolor*{block title example}{fg=black,bg=blue!20}
+\setbeamercolor*{block body example}{fg=black,bg=blue!5}
+

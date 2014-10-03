@@ -1,0 +1,50 @@
+\section{Maintaining R Packages}
+\makesubcontentsslides
+
+
+\subsection{Maintaining R Packages}
+
+\begin{frame}
+  \begin{block}{Maintinaing R Packages}
+    \begin{itemize}
+      \item Installing and managing R and its extensions can be pretty 
+complicated\dots
+      \item If printed, the 
+\href{http://cran.r-project.org/doc/manuals/r-release/R-admin.html}{R 
+Installation and Administration} manual would run over 100 pages.
+      \item We don't have that kind of time.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Highlights}
+    \begin{itemize}
+      \item Problem: you want to maintain separate package libraries.
+      \item You can always specify which library a package loads from: \\
+\texttt{library("foo", lib.loc="mylib/")}
+      \item But what if you have a lot of packages to load\dots
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+
+\begin{frame}
+  \begin{block}{Highlights}
+    \begin{itemize}
+      \item \texttt{.libPaths()} ``gets/sets the library trees within which 
+packages are looked for''.
+      \item So if you have package \texttt{foo} in libraries \texttt{A} and 
+\texttt{B}, setting \texttt{.libPaths(B)} will put \texttt{B} in the search 
+path before \texttt{A}.
+      \item Meaning package \texttt{foo} will load from library \texttt{B} (and 
+R will look there first even if it's not installed there).
+      \item \texttt{.Library} and \texttt{.Library.site} also exist, but are 
+more specialized.
+      \item \texttt{update.packages()} also exists.
+  \end{itemize}
+  \end{block}
+\end{frame}
+

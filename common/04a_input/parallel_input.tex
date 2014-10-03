@@ -1,0 +1,110 @@
+\subsection{Parallel Data Input}
+\makesubcontentsslidessec
+
+
+\begin{frame}
+  \begin{block}{Parallel reading brings new issues}\pause
+    \begin{itemize}
+    \item How to partition data across nodes?
+    \item How to structure for scalable libraries?
+    \item Read directly into form needed or restructure?
+    \item CSV, SQL, NetCDF4, HDF, ADIOS, custom binary
+    \item $\ldots$
+    \item Lot of work needed to make it intuitive!
+    \item Currently under development.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+  \begin{exampleblock}{CSV Data}\pause
+\begin{lstlisting}[title=Serial Code]
+x <- read.csv("x.csv")
+
+x
+\end{lstlisting}
+
+\begin{lstlisting}[title=Parallel Code]
+library(pbdDEMO, quiet = TRUE)
+init.grid()
+
+dx <- read.csv.ddmatrix("x.csv", header=TRUE, sep=",", 
+          nrows=10, ncols=10, num.rdrs=2, ICTXT=0)
+
+dx
+
+finalize()
+\end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{exampleblock}{Binary Data: Vector}\pause
+    \begin{lstlisting}
+size <- 8 # bytes
+
+my_ids <- get.jid(n)   # my index values from n
+
+my_start <- (my_ids[1] - 1)*size    # my starting byte location
+my_length <- length(my_ids)     # my number of bytes to read
+
+con <- file("binary.vector.file", "rb")
+seekval <- seek(con, where=my_start, rw="read")
+x <- readBin(con, what="double", n=my_length, size=size)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{exampleblock}{Binary Data: Matrix}\pause \vspace{-0.8ex}
+    \begin{lstlisting}[escapeinside={(*@}{@*)}]
+size <- 8 # bytes
+
+my_ids <- get.jid(ncol)
+my_ncol <- length(my_ids)
+my_start <- (my_ids[1] - 1)*(*@\textcolor{red}{nrow}@*)*size
+my_length <- my_ncol*(*@\textcolor{red}{nrow}@*)
+
+con <- file("binary.matrix.file", "rb")
+seekval <- seek(con, where=my_start, rw="read")
+x <- readBin(con, what="double", n=my_length, size=size)
+
+gdim <- c(nrow, ncol)
+ldim <- c(nrow, my_ncol)
+bldim <- c(nrow, allreduce(my_ncol, op="max"))
+X <- new("ddmatrix", Data=matrix(x, nrow, my_ncol), dim=gdim, ldim=ldim, bldim=bldim, ICTXT=1)    # glue together as column-block ddmatrix
+
+X <- redistribute(X, bldim=c(2, 2), ICTXT=0)  # redistribute as block-cyclic
+Xprc <- prcomp(X)   # proceed as with serial code
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{exampleblock}{NetCDF4 Data}\pause \vspace{-0.8ex}
+    \begin{lstlisting}
+### parallel read after determining start and length
+nc <- nc_open_par(file_name)
+
+nc_var_par_access(nc, "variable_name")
+new.X <- ncvar_get(nc, "variable_name", start, length)
+nc_close(nc)
+    \end{lstlisting}
+  \end{exampleblock}
+  \begin{exampleblock}{ADIOS Data (.bp files) \hfill pbdADIOS is under
+    construction}\pause \vspace{-0.8ex}
+    \begin{lstlisting}
+### parallel read after determining start and length
+file <- adios_open(file_name)
+
+## Bounding box (start, length) access
+## Staging capability with ADIOS configured simulation codes
+## Streaming access
+
+adios_close()
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+

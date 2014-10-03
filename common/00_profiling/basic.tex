@@ -1,0 +1,30 @@
+\subsection{Profiling R Code}
+\makesubcontentsslidessec
+
+
+\begin{frame}
+  \begin{block}{Timings}
+  Getting simple timings as a basic measure of performance is easy, and 
+valuable.
+  \begin{itemize}
+    \item \code{system.time()} --- timing blocks of code.
+    \item \code{Rprof()} --- timing execution of \R functions.
+    \item \code{Rprofmem()} --- reporting memory allocation in \R.
+    \item \code{tracemem()} --- detect when a copy of an \R object is created.
+    \item The \pkg{rbenchmark} package --- Benchmark comparisons.
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+
+% 
+% \begin{frame}
+%   \begin{block}{Timings}
+% To time a block of code, use \code{system.time()}:
+% \begin{lstlisting}[language=Rinteractive]
+% > system.time(sqrt(1:100000))
+%    user  system elapsed 
+%   0.001   0.000   0.001 
+% \end{lstlisting}
+%   \end{block}
+% \end{frame}

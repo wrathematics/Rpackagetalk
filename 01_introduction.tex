@@ -1,0 +1,138 @@
+\section{Installing R Packages}
+\makesubcontentsslides
+
+
+\subsection{Why R Extensions?}
+\makesubcontentsslidessec
+
+\begin{frame}
+  \begin{block}{R Extensions}
+    \begin{itemize}
+      \item R is great, but limited.
+      \item Has a great package extension system.
+      \item R doesn't do what you want?  Make it!
+    \end{itemize}
+    \vspace{.4cm}\pause
+    ``\textit{\dots if I don’t know how to fix it, I can hire somebody else to 
+fix it for me.}'' --- Matt Dowle, developer of the \texttt{data.table} 
+package.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Terminology}\pause
+    \begin{itemize}
+      \item We call the extension a \textit{package}.\pause
+      \item \textit{Packages} go into a \textit{library}.\pause
+      \item \textbf{This is dumb and confusing, but there's nothing we can 
+ever do about it.}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Example Confusion}\pause
+    \begin{itemize}
+      \item I wrote a 
+\href{https://github.com/wrathematics/memuse/tree/master/src/meminfo}%
+{library}.\pause
+      \item I put the library in a 
+\href{https://github.com/wrathematics/memuse}{package}.\pause
+      \item I install the package \dots into a library.\pause
+      \item I load the package with \texttt{library()} ???
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{*BOOM*}
+  \begin{center}
+    \includegraphics[scale=.82]{pics/head_explosion}
+  \end{center}
+  \end{block}
+\end{frame}
+
+
+\subsection{Installing R Packages}
+\makesubcontentsslidessec
+
+
+\begin{frame}[fragile]
+  \begin{block}{Installing R Packages}
+\begin{lstlisting}
+install.packages("devtools")
+\end{lstlisting}
+\pause
+\begin{lstlisting}
+install.packages("devtools", lib="some/place/on/disk")
+\end{lstlisting}
+\pause
+\begin{lstlisting}[language=sh]
+R CMD INSTALL devtools_1.6.tar.gz -l /some/place/on/disk
+\end{lstlisting}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Repositories}
+  \begin{itemize}
+    \item This basically assumes you're using CRAN.\pause
+    \item Lots of exciting development is happening outside of CRAN these 
+days.\pause
+    \item Other binary package repositories: Bioconductor, R-forge (Windows)
+\pause
+    \item Other source repositories: GitHub, Bitbucket, \dots 
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{GitHub Binaries?}
+    \begin{center}
+      \includegraphics{pics/plans}
+    \end{center}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{block}{Installing Packages from Source}
+  To install packages from source, you need some compilers:
+  \begin{itemize}
+    \item \textbf{Windows}: Install 
+\href{http://cran.r-project.org/bin/windows/Rtools/}{Rtools}.
+    \item \textbf{Mac}: Install Xcode from the app store, possibly some other 
+things from \href{http://cran.r-project.org/bin/macosx/tools/}{here}.  If 
+you need OpenMP, god help you.
+    \item \textbf{Linux and FreeBSD}:  You're good to go.
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \begin{block}{Installing R Packages}
+\begin{lstlisting}
+library(devtools)
+install_github("hadley/devtools")
+\end{lstlisting}
+
+  \begin{center}
+  Devtools Package Install Functions
+    \begin{tabular}{lll}\hline
+      \texttt{install\_bitbucket} & \texttt{install\_github}   &  
+\texttt{install\_svn}        \\
+      \texttt{install\_deps}    &   \texttt{install\_gitorious} & 
+\texttt{install\_url}      \\  
+      \texttt{install\_git}     &   \texttt{install\_local}   &   
+\texttt{install\_version}  \\\hline
+    \end{tabular}
+  \end{center}
+  \end{block}
+\end{frame}
+
